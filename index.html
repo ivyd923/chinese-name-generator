@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Name Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #dc1a3b;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin: 30px 0;
+        }
+        input {
+            width: 80%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #dc1a3b;
+            box-shadow: 0 0 0 3px rgba(220, 26, 59, 0.1);
+        }
+        button {
+            background: #dc1a3b;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #c41732;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 26, 59, 0.2);
+        }
+        .footer-text {
+            color: #888;
+            margin-top: 30px;
+            font-style: italic;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        .chinese-name {
+            font-size: 2em;
+            color: #dc1a3b;
+            margin: 20px 0;
+        }
+        .meaning {
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chinese Name Generator</h1>
+        <div class="subtitle">Find your perfect Chinese name with cultural meaning</div>
+        
+        <div class="input-group">
+            <input type="text" id="englishName" placeholder="Enter your English name">
+            <button onclick="generateName()">Generate Names</button>
+        </div>
+
+        <div id="result" class="result"></div>
+        
+        <div class="footer-text">Discover the beauty of Chinese naming culture</div>
+    </div>
+
+    <script>
+        function generateName() {
+            const englishName = document.getElementById('englishName').value;
+            if (!englishName) {
+                alert('Please enter your English name');
+                return;
+            }
+
+            const surnames = ['李', '王', '张', '刘', '陈', '杨', '赵', '黄', '周', '吴'];
+            const givenNames = {
+                male: ['伟', '强', '华', '明', '志', '宇', '浩', '天', '子', '晨'],
+                female: ['芳', '娟', '敏', '静', '婷', '雪', '月', '莲', '雅', '琳']
+            };
+
+            const surname = surnames[Math.floor(Math.random() * surnames.length)];
+            const gender = Math.random() > 0.5 ? 'male' : 'female';
+            const givenName = givenNames[gender][Math.floor(Math.random() * 10)];
+
+            const meanings = {
+                male: {
+                    '伟': 'great, extraordinary',
+                    '强': 'strong, powerful',
+                    '华': 'splendid, magnificent',
+                    '明': 'bright, clear',
+                    '志': 'ambition, aspiration'
+                },
+                female: {
+                    '芳': 'fragrant, virtuous',
+                    '娟': 'beautiful, graceful',
+                    '敏': 'quick, clever',
+                    '静': 'quiet, peaceful',
+                    '婷': 'elegant, graceful'
+                }
+            };
+
+            const result = `
+                <div class="chinese-name">${surname}${givenName}</div>
+                <div class="meaning">
+                    <p><strong>Surname:</strong> ${surname}</p>
+                    <p><strong>Given name:</strong> ${givenName}</p>
+                    <p><strong>Meaning:</strong> ${meanings[gender][givenName] || 'A beautiful Chinese name'}</p>
+                    <p><strong>Cultural significance:</strong> This name combines traditional Chinese elements with modern aesthetics.</p>
+                </div>
+            `;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = result;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
